@@ -5,7 +5,13 @@ import Create from "@/components/create";
 import IncomeCreate from "@/components/income-create";
 import { useState } from "react";
 
-export default function Home({ expenses, income }: any) {
+export default function Home({
+  finalTotal,
+  expenses,
+  income,
+  totalExpense,
+  totalIncome,
+}: any) {
   const [activeClass, setActiveClass] = useState<string>("expense");
 
   function handleExpense() {
@@ -21,14 +27,14 @@ export default function Home({ expenses, income }: any) {
       <div className='max-w-xl w-full flex flex-col min-h-screen'>
         <div className='bg-slate-950 text-white rounded-md p-14 w-full flex flex-col'>
           <h2 className='text-base'>Total balance</h2>
-          <p className='font-black text-2xl'>$3,000</p>
+          <p className='font-black text-2xl'>${finalTotal}</p>
         </div>
 
         <div className='flex justify-between gap-4 mt-8'>
           <div className='bg-pink-300 text-black rounded-md p-8 w-full flex flex-col gap-3'>
             <div className='flex flex-col'>
               <h2 className='text-sm'>Expense</h2>
-              <p className='font-black text-2xl'>$50,000</p>
+              <p className='font-black text-2xl'>${totalExpense}</p>
             </div>
             <Create />
           </div>
@@ -36,7 +42,7 @@ export default function Home({ expenses, income }: any) {
           <div className='bg-orange-500 text-black rounded-md p-8 w-full flex flex-col gap-3'>
             <div className='flex flex-col'>
               <h2 className='text-sm'>Income</h2>
-              <p className='font-black text-2xl'>$20,000</p>
+              <p className='font-black text-2xl'>${totalIncome}</p>
             </div>
             <IncomeCreate />
           </div>
