@@ -1,15 +1,19 @@
 import React from "react";
 import { TrainFront } from "lucide-react";
 
-export default function Income() {
+export default function Income({ income }: any) {
   return (
-    <div className='border p-4 rounded-md flex justify-between'>
-      <div className='flex gap-2 items-center'>
-        <TrainFront />
-        <h4>Education Incomes</h4>
-      </div>
+    <>
+      {income.map((item: any) => (
+        <div className='border p-4 rounded-md flex justify-between'>
+          <div className='flex gap-2 items-center'>
+            <TrainFront />
+            <h4>{item.name}</h4>
+          </div>
 
-      <span className='text-red-600 font-bold'>-$37,809</span>
-    </div>
+          <span className='text-slate-950 font-bold'>-${item.amount}</span>
+        </div>
+      ))}
+    </>
   );
 }

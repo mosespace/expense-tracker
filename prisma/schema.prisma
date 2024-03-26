@@ -16,10 +16,10 @@ datasource db {
 
 model Expense {
   id                String    @id @default(auto()) @map("_id") @db.ObjectId
-  amount            String    @unique
+  amount            Int    
   name              String
-  date              String
-  description       String    @db.ObjectId
+  date              DateTime
+  description       String   
   createdAt         DateTime @default(now()) @map(name: "created_at")
   updatedAt         DateTime @default(now()) @map(name: "updated_at")
 }
@@ -27,9 +27,10 @@ model Expense {
 
 model Income {
   id                String    @id @default(auto()) @map("_id") @db.ObjectId
-  amount            String    @unique
+  amount            Int    
   name              String
-  date              String
+  date              DateTime
+  description       String 
   createdAt         DateTime @default(now()) @map(name: "created_at")
   updatedAt         DateTime @default(now()) @map(name: "updated_at")
 }

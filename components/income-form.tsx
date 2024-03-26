@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon, Loader } from "lucide-react";
-import { postExpense } from "@/actions/expenses";
+import { postIncome } from "@/actions/expenses";
 import {
   Popover,
   PopoverContent,
@@ -56,16 +56,16 @@ export default function InputForm() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true);
     try {
-      const req = await postExpense({ data });
+      const req = await postIncome({ data });
       toast({
-        title: "You've submitted an expense",
+        title: "You've submitted an income",
       });
       setLoading(false);
       location.reload();
     } catch (error: any) {
       setLoading(false);
       toast({
-        title: "Creation of the expense has failed",
+        title: "Creation of the income has failed",
       });
     }
   }
