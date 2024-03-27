@@ -1,9 +1,11 @@
 "use client";
+import { useState } from "react";
 import Expenses from "@/components/my-expenses";
 import Income from "@/components/income";
 import Create from "@/components/create";
 import IncomeCreate from "@/components/income-create";
-import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { BellDot } from "lucide-react";
 
 export default function Home({
   finalTotal,
@@ -25,24 +27,49 @@ export default function Home({
   return (
     <main className='flex min-h-screen flex-col items-center py-8'>
       <div className='max-w-xl w-full flex flex-col min-h-screen'>
-        <div className='bg-slate-950 text-white rounded-md p-14 w-full flex flex-col'>
-          <h2 className='text-base'>Total balance</h2>
-          <p className='font-black text-2xl'>${finalTotal}</p>
+        <div className='flex justify-between mb-4 items-center'>
+          <div className='flex gap-3 items-center'>
+            <img
+              src='https://tecdn.b-cdn.net/img/new/avatars/2.webp'
+              className='w-16 rounded-full'
+              alt='Avatar'
+            />
+            <div className='flex flex-col'>
+              <span>Hello!</span>
+              <p className='font-bold capitalize'>uncle moses</p>
+            </div>
+          </div>
+          <BellDot className='w-6 h-6' />
+        </div>
+        <div className='bg-[#322F50] text-white rounded-3xl p-14 w-full flex items-center justify-between'>
+          <div className='flex flex-col'>
+            <h2 className='text-base'>Total balance</h2>
+            <p className='font-black text-2xl'>${finalTotal}</p>
+          </div>
+          <img
+            src='/pie-chart.svg'
+            alt='svg-demo-place-holder-image'
+            className='w-[4.5rem] h-[4.5rem]'
+          />
         </div>
 
         <div className='flex justify-between gap-4 mt-8'>
-          <div className='bg-pink-300 text-black rounded-md p-8 w-full flex flex-col gap-3'>
+          <div className='bg-[#B1D1D8] text-[#322F50] rounded-3xl p-8 w-full flex justify-between gap-3'>
             <div className='flex flex-col'>
               <h2 className='text-sm'>Expense</h2>
-              <p className='font-black text-2xl'>${totalExpense}</p>
+              <p className='font-black text-2xl'>
+                ${totalExpense.toLocaleString()}
+              </p>
             </div>
             <Create />
           </div>
 
-          <div className='bg-orange-500 text-black rounded-md p-8 w-full flex flex-col gap-3'>
+          <div className='bg-[#EFDAC7] text-[#322F50] rounded-3xl p-8 w-full flex  justify-between gap-3'>
             <div className='flex flex-col'>
               <h2 className='text-sm'>Income</h2>
-              <p className='font-black text-2xl'>${totalIncome}</p>
+              <p className='font-black text-2xl'>
+                ${totalIncome.toLocaleString()}
+              </p>
             </div>
             <IncomeCreate />
           </div>
@@ -56,13 +83,18 @@ export default function Home({
           <div className='flex mt-4 items-center justify-between'>
             <button
               onClick={() => handleExpense()}
-              className='bg-slate-950 text-white rounded-md px-8 py-2'
+              className={cn("border border-[#322F50] rounded-md px-8 py-2", {
+                "bg-green-600 border-none text-white":
+                  activeClass === "expense",
+              })}
             >
               Expenses
             </button>
             <button
               onClick={() => handleIncome()}
-              className='bg-slate-950 text-white rounded-md px-8 py-2'
+              className={cn("border border-[#322F50] rounded-md px-8 py-2", {
+                "bg-green-600 border-none text-white": activeClass === "income",
+              })}
             >
               Income
             </button>

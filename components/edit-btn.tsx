@@ -1,19 +1,35 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import {
   AlertDialog,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import InputForm from "@/components/income-form";
+import { FilePenLine, X } from "lucide-react";
+import InputForm from "./form";
+import { getExpense } from "@/actions/expenses";
 
-export default function IncomeCreate() {
+export default function EditBtn({ id }: any) {
+  const [initialData, setInitialData] = useState(null);
+  // console.log(initialData);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data: any = await getExpense(id);
+      setInitialData(data);
+    };
+
+    fetchData();
+  }, [id]);
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant='outline'>
-          <Plus />
+          <FilePenLine className='w-4 h-4' />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -28,7 +44,7 @@ export default function IncomeCreate() {
             <X />
           </AlertDialogCancel>
         </div>
-        <InputForm />
+        <InputForm initialData={initialData} />
       </AlertDialogContent>
     </AlertDialog>
   );

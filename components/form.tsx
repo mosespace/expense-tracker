@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon, Loader } from "lucide-react";
-import { postExpense } from "@/actions/expenses";
+import { postExpense, updateExpense } from "@/actions/expenses";
 import {
   Popover,
   PopoverContent,
@@ -42,7 +42,7 @@ const FormSchema = z.object({
   }),
 });
 
-export default function InputForm() {
+export default function InputForm({ initialData }: any) {
   const [loading, setLoading] = React.useState<boolean>(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -50,22 +50,34 @@ export default function InputForm() {
       name: "",
       amount: 0,
       description: "",
+      ...initialData,
     },
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true);
     try {
-      const req = await postExpense({ data });
-      toast({
-        title: "You've submitted an expense",
-      });
+      if (initialData) {
+        // Update existing data
+        const id = initialData.id;
+        console.log(id);
+        const req = await updateExpense(id, data);
+        toast({
+          title: "You've updated an expense",
+        });
+      } else {
+        // Post new data
+        const req = await postExpense({ data });
+        toast({
+          title: "You've submitted an expense",
+        });
+      }
       setLoading(false);
       location.reload();
     } catch (error: any) {
       setLoading(false);
       toast({
-        title: "Creation of the expense has failed",
+        title: "Creation or update of the expense has failed",
       });
     }
   }
@@ -161,7 +173,7 @@ export default function InputForm() {
         />
         <Button className='w-full flex gap-2' type='submit'>
           {loading && <Loader className='animate-spin w-4 h-4' />}
-          Submit
+          {initialData ? "Update" : "Submit"}
         </Button>
       </form>
     </Form>

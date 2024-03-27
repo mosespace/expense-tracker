@@ -42,7 +42,8 @@ const FormSchema = z.object({
   }),
 });
 
-export default function InputForm() {
+export default function InputForm({ initialData }: any) {
+  console.log(initialData);
   const [loading, setLoading] = React.useState<boolean>(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -50,6 +51,7 @@ export default function InputForm() {
       name: "",
       amount: 0,
       description: "",
+      ...initialData,
     },
   });
 

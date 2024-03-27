@@ -15,7 +15,7 @@ export default async function page() {
     0
   );
 
-  const finalTotal = (totalExpense - totalIncome).toLocaleString();
+  const finalTotal = (totalIncome - totalExpense).toLocaleString();
 
   return (
     <Home
