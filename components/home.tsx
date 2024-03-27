@@ -1,11 +1,9 @@
 "use client";
 import { useState } from "react";
-import Expenses from "@/components/my-expenses";
-import Income from "@/components/income";
-import Create from "@/components/create";
-import IncomeCreate from "@/components/income-create";
+import RecentCard from "@/components/recent-card";
 import { cn } from "@/lib/utils";
 import { BellDot } from "lucide-react";
+import Create from "@/components/create";
 
 export default function Home({
   finalTotal,
@@ -39,7 +37,7 @@ export default function Home({
               <p className='font-bold capitalize'>uncle moses</p>
             </div>
           </div>
-          <BellDot className='w-6 h-6' />
+          <BellDot className='w-6 h-6 cursor-pointer' />
         </div>
         <div className='bg-[#322F50] text-white rounded-3xl p-14 w-full flex items-center justify-between'>
           <div className='flex flex-col'>
@@ -61,7 +59,11 @@ export default function Home({
                 ${totalExpense.toLocaleString()}
               </p>
             </div>
-            <Create />
+            <Create
+              title='Create Expense'
+              description="Create expense changes here and then click save when you're done."
+              type='expense'
+            />
           </div>
 
           <div className='bg-[#EFDAC7] text-[#322F50] rounded-3xl p-8 w-full flex  justify-between gap-3'>
@@ -71,13 +73,17 @@ export default function Home({
                 ${totalIncome.toLocaleString()}
               </p>
             </div>
-            <IncomeCreate />
+            <Create
+              title='Create Income'
+              description="Create income changes here and then click save when you're done."
+              type='income'
+            />
           </div>
         </div>
 
         <div className='mt-8'>
           <h3 className='font-black text-xl'>
-            Recent {activeClass === "expense" ? "Expenses" : "Incomes"}
+            Recent {activeClass === "expense" ? "RecentCard" : "Incomes"}
           </h3>
 
           <div className='flex mt-4 items-center justify-between'>
@@ -88,7 +94,7 @@ export default function Home({
                   activeClass === "expense",
               })}
             >
-              Expenses
+              RecentCard
             </button>
             <button
               onClick={() => handleIncome()}
@@ -101,9 +107,9 @@ export default function Home({
           </div>
           <div className='mt-4'>
             {activeClass === "expense" ? (
-              <Expenses expenses={expenses} />
+              <RecentCard data={expenses} type='expense' />
             ) : (
-              <Income income={income} />
+              <RecentCard data={income} type='income' />
             )}
           </div>
         </div>

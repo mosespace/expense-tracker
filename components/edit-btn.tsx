@@ -9,17 +9,22 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { FilePenLine, X } from "lucide-react";
-import InputForm from "./form";
-import { getExpense } from "@/actions/expenses";
+import { fetchIncome, getExpense } from "@/actions/expenses";
+import ExpenseForm from "./expense-form";
+import IncomeForm from "./income-form";
 
-export default function EditBtn({ id }: any) {
-  const [initialData, setInitialData] = useState(null);
-  // console.log(initialData);
+export default function EditBtn({ id, type }: any) {
+  const [expenses, setExpenses] = useState(null);
+  const [income, setIncome] = useState(null);
+  // console.log(income);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data: any = await getExpense(id);
-      setInitialData(data);
+      const expenseData: any = await getExpense(id);
+      setExpenses(expenseData);
+
+      const incomeData: any = await fetchIncome(id);
+      setIncome(incomeData);
     };
 
     fetchData();
@@ -35,16 +40,17 @@ export default function EditBtn({ id }: any) {
       <AlertDialogContent>
         <div className='flex justify-between items-start'>
           <div className='flex flex-col'>
-            <h2 className='font-black mb-2'>Create Income</h2>
+            <h2 className='font-black mb-2 capitalize'>Create {type}</h2>
             <p>
-              Create income changes here and then click save when you're done.
+              Create {type} changes here and then click save when you're done.
             </p>
           </div>
           <AlertDialogCancel>
             <X />
           </AlertDialogCancel>
         </div>
-        <InputForm initialData={initialData} />
+        {type === "expense" && <ExpenseForm initialData={expenses} />}
+        {type === "income" && <IncomeForm initialData={income} />}
       </AlertDialogContent>
     </AlertDialog>
   );

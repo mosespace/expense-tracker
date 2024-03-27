@@ -1,5 +1,5 @@
 "use client";
-import { deleteExpense } from "@/actions/expenses";
+import { deleteExpense, deleteIncome } from "@/actions/expenses";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,24 +16,31 @@ import { Loader, Trash2 } from "lucide-react";
 import React from "react";
 import { toast } from "./ui/use-toast";
 
-export default function DeleteBtn({ id }: any) {
+export default function DeleteBtn({ id, type }: any) {
   const [loading, setLoading] = React.useState<boolean>(false);
-
-  //   console.log(id);
 
   async function handleDelete() {
     setLoading(true);
     try {
-      const req = await deleteExpense(id);
-      setLoading(false);
-      location.reload();
-      toast({
-        title: "Expense has been deleted successfully",
-      });
+      if (type === "expense") {
+        const req = await deleteExpense(id);
+        setLoading(false);
+        location.reload();
+        toast({
+          title: "Expense has been deleted successfully",
+        });
+      } else {
+        const req = await deleteIncome(id);
+        setLoading(false);
+        location.reload();
+        toast({
+          title: "Expense has been deleted successfully",
+        });
+      }
     } catch (error: any) {
       setLoading(false);
       toast({
-        title: "Deletion of the expense has failed",
+        title: "Deletion has failed",
       });
     }
   }

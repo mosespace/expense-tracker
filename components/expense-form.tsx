@@ -42,7 +42,7 @@ const FormSchema = z.object({
   }),
 });
 
-export default function InputForm({ initialData }: any) {
+export default function ExpenseForm({ initialData }: any) {
   const [loading, setLoading] = React.useState<boolean>(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -60,7 +60,7 @@ export default function InputForm({ initialData }: any) {
       if (initialData) {
         // Update existing data
         const id = initialData.id;
-        console.log(id);
+        // console.log(id);
         const req = await updateExpense(id, data);
         toast({
           title: "You've updated an expense",

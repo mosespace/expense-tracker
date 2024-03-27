@@ -129,3 +129,73 @@ export async function getIncome() {
     throw error;
   }
 }
+
+export async function fetchIncome(id: any) {
+  try {
+    const income = await db.income.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    revalidatePath("/");
+    return income;
+  } catch (error: any) {
+    console.log(error);
+  }
+}
+
+export async function deleteIncome(id: any) {
+  // console.log(id);
+  try {
+    // Retrieve the income from the database using both id and role
+    const income = await db.income.findUnique({
+      where: { id },
+    });
+
+    // Check if the income exists
+    if (!income) {
+      throw new Error("Income not found");
+    }
+
+    // If the income matches any in the database, proceed with deleting it
+    const deleteIncome = await db.income.delete({
+      where: { id },
+    });
+
+    // Perform any necessary income-deletion actions
+    revalidatePath("/");
+
+    // console.log(deleteIncome);
+    return deleteIncome;
+  } catch (error: any) {
+    console.error("Error deleting income:", error);
+  }
+}
+
+export async function updateIncome(id: any, data: any) {
+  try {
+    // Retrieve the income from the database using both id and userId
+    const income = await db.income.findUnique({
+      where: { id },
+    });
+
+    // Check if the income exists
+    if (!income) {
+      throw new Error("Income not found");
+    }
+
+    // If the income exists, proceed with updating the income
+    const updatedIncome = await db.income.update({
+      where: { id },
+      data,
+    });
+
+    revalidatePath("/");
+
+    // console.log(updatedIncome);
+    return updatedIncome;
+  } catch (error: any) {
+    console.error("Error updating income:", error);
+    throw error;
+  }
+}

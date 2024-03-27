@@ -6,9 +6,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import InputForm from "@/components/form";
+import IncomeForm from "@/components/income-form";
+import ExpenseForm from "./expense-form";
 
-export default function Create() {
+export default function Create({ title, description, type }: any) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -19,16 +20,15 @@ export default function Create() {
       <AlertDialogContent>
         <div className='flex justify-between items-start'>
           <div className='flex flex-col'>
-            <h2 className='font-black mb-2'>Create Income</h2>
-            <p>
-              Create income changes here and then click save when you're done.
-            </p>
+            <h2 className='font-black mb-2'>{title}</h2>
+            <p>{description}</p>
           </div>
           <AlertDialogCancel>
             <X />
           </AlertDialogCancel>
         </div>
-        <InputForm />
+        {type === "expense" && <ExpenseForm />}
+        {type === "income" && <IncomeForm />}
       </AlertDialogContent>
     </AlertDialog>
   );

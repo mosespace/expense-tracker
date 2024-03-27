@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon, Loader } from "lucide-react";
-import { postIncome } from "@/actions/expenses";
+import { postIncome, updateIncome } from "@/actions/expenses";
 import {
   Popover,
   PopoverContent,
@@ -42,8 +42,9 @@ const FormSchema = z.object({
   }),
 });
 
-export default function InputForm({ initialData }: any) {
+export default function IncomeForm({ initialData }: any) {
   console.log(initialData);
+
   const [loading, setLoading] = React.useState<boolean>(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -58,12 +59,20 @@ export default function InputForm({ initialData }: any) {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true);
     try {
-      const req = await postIncome({ data });
-      toast({
-        title: "You've submitted an income",
-      });
-      setLoading(false);
-      location.reload();
+      if (initialData) {
+        // Update existing income
+        const id = initialData.id;
+        // console.log(id);
+        const req = await updateIncome(id, data);
+        toast({
+          title: "You've updated an income",
+        });
+      } else {
+        const req = await postIncome({ data });
+        toast({
+          title: "You've submitted an income",
+        });
+      }
     } catch (error: any) {
       setLoading(false);
       toast({
@@ -82,7 +91,7 @@ export default function InputForm({ initialData }: any) {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder='launch expanse' {...field} />
+                <Input placeholder='launch income' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
