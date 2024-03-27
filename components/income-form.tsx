@@ -73,6 +73,8 @@ export default function IncomeForm({ initialData }: any) {
           title: "You've submitted an income",
         });
       }
+      setLoading(false);
+      location.reload();
     } catch (error: any) {
       setLoading(false);
       toast({
@@ -117,7 +119,7 @@ export default function IncomeForm({ initialData }: any) {
           name='date'
           render={({ field }) => (
             <FormItem className='flex flex-col'>
-              <FormLabel>Date of birth</FormLabel>
+              <FormLabel>Date</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>

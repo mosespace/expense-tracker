@@ -83,7 +83,7 @@ export default function Home({
 
         <div className='mt-8'>
           <h3 className='font-black text-xl'>
-            Recent {activeClass === "expense" ? "RecentCard" : "Incomes"}
+            Recent {activeClass === "expense" ? "Expense" : "Incomes"}
           </h3>
 
           <div className='flex mt-4 items-center justify-between'>
@@ -94,7 +94,7 @@ export default function Home({
                   activeClass === "expense",
               })}
             >
-              RecentCard
+              Expense
             </button>
             <button
               onClick={() => handleIncome()}
