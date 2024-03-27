@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { BellDot } from "lucide-react";
 import Create from "@/components/create";
 import { ModeToggle } from "./mode-toggle";
+import Image from "next/image";
 
 export default function Home({
   finalTotal,
@@ -24,14 +25,16 @@ export default function Home({
   }
 
   return (
-    <main className='flex min-h-screen flex-col items-center py-8'>
-      <div className='max-w-xl w-full flex flex-col min-h-screen'>
+    <main className='p-8 overflow-hidden flex min-h-screen flex-col items-center py-8'>
+      <div className='md:max-w-xl w-full flex flex-col min-h-screen'>
         <div className='flex justify-between mb-4 items-center'>
           <div className='flex gap-3 items-center'>
-            <img
-              src='https://tecdn.b-cdn.net/img/new/avatars/2.webp'
-              className='w-16 rounded-full'
-              alt='Avatar'
+            <Image
+              width={100}
+              height={100}
+              src='/moses.jpg'
+              className='w-14 h-14 rounded-full object-cover'
+              alt='Kisakye Moses also Known As uncle Moses'
             />
             <div className='flex flex-col'>
               <span>Hello!</span>
@@ -43,7 +46,8 @@ export default function Home({
             <ModeToggle />
           </div>
         </div>
-        <div className='bg-[#322F50] text-white rounded-3xl p-14 w-full flex items-center justify-between'>
+
+        <div className='bg-[#322F50] text-white rounded-3xl p-8 md:p-14 w-full flex items-center justify-between'>
           <div className='flex flex-col'>
             <h2 className='text-base'>Total balance</h2>
             <p className='font-black text-2xl'>${finalTotal}</p>
@@ -55,7 +59,7 @@ export default function Home({
           />
         </div>
 
-        <div className='flex justify-between gap-4 mt-8'>
+        <div className='flex flex-col md:flex-row justify-between gap-4 mt-8'>
           <div className='bg-[#B1D1D8] text-[#322F50] rounded-3xl p-8 w-full flex justify-between gap-3'>
             <div className='flex flex-col'>
               <h2 className='text-sm'>Expense</h2>
