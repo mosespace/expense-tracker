@@ -4,6 +4,7 @@ import RecentCard from "@/components/recent-card";
 import { cn } from "@/lib/utils";
 import { BellDot } from "lucide-react";
 import Create from "@/components/create";
+import { ModeToggle } from "./mode-toggle";
 
 export default function Home({
   finalTotal,
@@ -37,7 +38,10 @@ export default function Home({
               <p className='font-bold capitalize'>uncle moses</p>
             </div>
           </div>
-          <BellDot className='w-6 h-6 cursor-pointer' />
+          <div className='flex items-center gap-2'>
+            <BellDot className='w-6 h-6 cursor-pointer' />
+            <ModeToggle />
+          </div>
         </div>
         <div className='bg-[#322F50] text-white rounded-3xl p-14 w-full flex items-center justify-between'>
           <div className='flex flex-col'>

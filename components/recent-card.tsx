@@ -14,7 +14,7 @@ export default function RecentCard({ data, type }: any) {
         >
           <div className='flex gap-2 items-center'>
             <div className='p-3 rounded-full bg-slate-100'>
-              <TrainFront className='w-4 h-4' />
+              <TrainFront className='w-4 h-4 dark:text-[#322F50]' />
             </div>
             <h4 className='capitalize'>{data.name}</h4>
           </div>
@@ -22,7 +22,7 @@ export default function RecentCard({ data, type }: any) {
           <div className='flex gap-2 items-center'>
             <span
               className={cn("text-red-600 font-bold", {
-                "text-[#322F50]": type === "income",
+                "text-[#322F50] dark:text-green-600": type === "income",
               })}
             >
               {type === "income" ? `$${data.amount}` : `-$${data.amount}`}

@@ -13,7 +13,10 @@ export default function Create({ title, description, type }: any) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant='outline'>
+        <Button
+          variant='outline'
+          className='dark:bg-slate-50 dark:hover:text-[#322F50]'
+        >
           <Plus />
         </Button>
       </AlertDialogTrigger>
