@@ -16,15 +16,20 @@ import IncomeForm from "./income-form";
 export default function EditBtn({ id, type }: any) {
   const [expenses, setExpenses] = useState(null);
   const [income, setIncome] = useState(null);
-  // console.log(income);
 
   useEffect(() => {
     const fetchData = async () => {
-      const expenseData: any = await getExpense(id);
-      setExpenses(expenseData);
-
-      const incomeData: any = await fetchIncome(id);
-      setIncome(incomeData);
+      try {
+        // Fetch expenseData and incomeData in parallel
+        const [expenseData, incomeData]: any = await Promise.all([
+          getExpense(id),
+          fetchIncome(id),
+        ]);
+        setExpenses(expenseData);
+        setIncome(incomeData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
     fetchData();
@@ -49,8 +54,10 @@ export default function EditBtn({ id, type }: any) {
             <X />
           </AlertDialogCancel>
         </div>
-        {type === "expense" && <ExpenseForm initialData={expenses} />}
-        {type === "income" && <IncomeForm initialData={income} />}
+        {expenses && type === "expense" && (
+          <ExpenseForm initialData={expenses} />
+        )}
+        {income && type === "income" && <IncomeForm initialData={income} />}
       </AlertDialogContent>
     </AlertDialog>
   );

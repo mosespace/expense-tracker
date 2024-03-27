@@ -43,7 +43,7 @@ const FormSchema = z.object({
 });
 
 export default function IncomeForm({ initialData }: any) {
-  console.log(initialData);
+  // console.log(initialData);
 
   const [loading, setLoading] = React.useState<boolean>(false);
   const form = useForm<z.infer<typeof FormSchema>>({
